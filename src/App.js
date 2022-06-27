@@ -1,13 +1,14 @@
+import headerLogoPath from './images/logo/logo-mesto.svg';
 
 
 function App() {
   return (
     <div className="App">
       <header className="header">
-        <a href="#">
+        <a href="../public/index.html">
           <img
               className="header__logo"
-              src="#"
+              src={headerLogoPath}
               alt="Mesto логотип"
           />
         </a>
@@ -246,7 +247,7 @@ function App() {
               alt=""
           />
             <div className="card__text-wrapper">
-              <h2 className="card__title"></h2>
+              <h2 className="card__title">имя карточки</h2>
               <div className="card__like-wrapper">
                 <button
                     type="button"

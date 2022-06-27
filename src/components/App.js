@@ -1,24 +1,15 @@
-import headerLogoPath from './images/logo/logo-mesto.svg';
-
+import Header from "./Header";
 
 function App() {
   return (
     <div className="App">
-      <header className="header">
-        <a href="../public/index.html">
-          <img
-              className="header__logo"
-              src={headerLogoPath}
-              alt="Mesto логотип"
-          />
-        </a>
-      </header>
+      <Header />
       <main>
         <section className="user">
           <div className="user__avatar-wrapper">
             <img
                 className="user__avatar"
-                src="#"
+                src="src/components/App#"
                 alt="Аватарка пользователя"
             />
               <button
@@ -53,7 +44,7 @@ function App() {
             <form
                 className="popup__form"
                 name="editProfileForm"
-                action="#"
+                action="src/components/App#"
                 method="post">
               <label className="popup__label">
                 <input
@@ -107,7 +98,7 @@ function App() {
             <form
                 className="popup__form"
                 name="newPostForm"
-                action="#"
+                action="src/components/App#"
                 method="post">
               <label className="popup__label">
                 <input
@@ -159,7 +150,7 @@ function App() {
           <div className="popup__container">
             <img
                 className="popup__img"
-                src="#"
+                src="src/components/App#"
                 alt=""
             />
               <p className="popup__name"></p>
@@ -175,7 +166,7 @@ function App() {
         <div className="popup popup_id_delete-confirm">
           <form className="popup__form popup__form_type_confirm"
                 name="deleteConfirmForm"
-                action="#"
+                action="src/components/App#"
                 method="post">
             <h2 className="popup__title">
               Вы уверены?
@@ -199,7 +190,7 @@ function App() {
         <div className="popup popup_id_new-avatar">
           <form className="popup__form popup__form_type_avatar"
                 name="updateAvatar"
-                action="#"
+                action="src/components/App#"
                 method="post">
             <h2 className="popup__title">
               Обновить аватар
@@ -243,7 +234,7 @@ function App() {
         <li className="card">
           <img
               className="card__pic"
-              src="#"
+              src="src/components/App#"
               alt=""
           />
             <div className="card__text-wrapper">

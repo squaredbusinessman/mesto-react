@@ -1,6 +1,21 @@
 import React from 'react';
 
 const Main = () => {
+
+    function HandleEditAvatarClick() {
+        document.querySelector('.popup_id_new-avatar').classList.add('popup_visible');
+    }
+
+    function HandleEditProfileClick() {
+        document.querySelector('.popup_id_profile-edit').classList.add('popup_visible');
+    }
+
+    function  HandleAddPlaceClick() {
+        document.querySelector('.popup_id_new-post').classList.add('popup_visible');
+    }
+
+
+
     return (
         <>
             <main>
@@ -12,6 +27,7 @@ const Main = () => {
                             alt="Аватарка пользователя"
                         />
                         <button
+                            onClick={HandleEditAvatarClick}
                             type="button"
                             className="user__avatar-editor-btn"
                             aria-label="Кнопка редактирования аватара пользователя"
@@ -20,6 +36,7 @@ const Main = () => {
                     <div className="user__text-wrapper">
                         <h1 className="user__name">User-Name</h1>
                         <button
+                            onClick={HandleEditProfileClick}
                             type="button"
                             className="user__nick-editor-btn"
                             aria-label="Кнопка редактирования Имени и доп. информации пользователя"
@@ -27,6 +44,7 @@ const Main = () => {
                         <p className="user__about">User-about</p>
                     </div>
                     <button
+                        onClick={HandleAddPlaceClick}
                         type="button"
                         className="user__add-post-btn"
                         aria-label="Кнопка создания новой публикации"

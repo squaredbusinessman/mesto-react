@@ -31,7 +31,6 @@ function PopupWithForm(props) {
                                 type="submit"
                                 className="popup__save-btn"
                                 aria-label="Кнопка отправки формы"
-                                disabled
                             >
                                 {
                                     (props.name === 'profile-edit')
@@ -66,7 +65,6 @@ function PopupWithForm(props) {
                             type="submit"
                             className="popup__save-btn"
                             aria-label="Кнопка отправки формы"
-                            disabled
                         >
                             {
                                 (props.name === 'new-avatar')

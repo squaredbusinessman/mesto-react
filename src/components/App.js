@@ -52,6 +52,7 @@ function App() {
         <PopupWithForm
             name="profile-edit"
             title="Редактировать профиль"
+            submitButtonTitle="Сохранить"
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
         >
@@ -62,6 +63,7 @@ function App() {
                     id="popup__input-nickname"
                     name="name"
                     aria-label="Поле ввода имени пользователя"
+                    placeholder="Введите имя профиля"
                     minLength="2"
                     maxLength="40"
                     autoComplete="off"
@@ -76,6 +78,7 @@ function App() {
                     id="popup__input-about"
                     name="about"
                     aria-label="Поле ввода информации о пользователе"
+                    placeholder="Введите информацию о вас"
                     minLength="2"
                     maxLength="200"
                     autoComplete="off"
@@ -88,6 +91,7 @@ function App() {
         <PopupWithForm
             name="new-post"
             title="Новое место"
+            submitButtonTitle="Создать"
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
         >
@@ -124,6 +128,7 @@ function App() {
         <PopupWithForm
             name="new-avatar"
             title="Обновить аватар"
+            submitButtonTitle="Сохранить"
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
         >
@@ -145,10 +150,9 @@ function App() {
         <PopupWithForm
             name="delete-confirm"
             title="Вы уверены?"
+            submitButtonTitle="Да"
             onClose={closeAllPopups}
-        >
-            ''
-        </PopupWithForm>
+        ></PopupWithForm>
 
         <ImagePopup
             card={selectedCard}

@@ -7,21 +7,23 @@ import React from "react";
 
 function App() {
 
+    const [selectedCard, setSelectedCard] = React.useState(null);
+
     const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
 
     const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
 
     const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
 
-    function HandleEditAvatarClick() {
+    function handleEditAvatarClick() {
         setEditAvatarPopup(true);
     }
 
-    function HandleEditProfileClick() {
+    function handleEditProfileClick() {
         setEditProfilePopup(true);
     }
 
-    function  HandleAddPlaceClick() {
+    function  handleAddPlaceClick() {
         setAddPlacePopup(true);
     }
 
@@ -29,17 +31,23 @@ function App() {
         setEditAvatarPopup(false);
         setEditProfilePopup(false);
         setAddPlacePopup(false);
+        setSelectedCard(null);
+    }
+
+    function handleCardClick(cardData) {
+        setSelectedCard(cardData);
     }
 
   return (
      <div className="App">
         <Header />
-        <Main onEditAvatar={HandleEditAvatarClick} onEditProfile={HandleEditProfileClick} onAddPlace={HandleAddPlaceClick}/>
+        <Main
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+        />
         <Footer />
-
-        <template id="card-template">
-
-        </template>
 
         <PopupWithForm
             name="profile-edit"
@@ -142,7 +150,10 @@ function App() {
             ''
         </PopupWithForm>
 
-        <ImagePopup />
+        <ImagePopup
+            card={selectedCard}
+            onClose={closeAllPopups}
+        />
     </div>
   );
 }

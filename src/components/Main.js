@@ -7,7 +7,6 @@ function Main(props) {
     const [error, setError] = React.useState(null);
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [cards, setCards] = React.useState([]);
-
     const [user, setUserData] = React.useState({
         name: '',
         about: '',
@@ -78,8 +77,12 @@ function Main(props) {
                     </section>
                     <section>
                         <ul className="cards">
-                            {cards.map(cardItem => (
-                                <Card card={cardItem} onClick={cardItem} />
+                            {cards.map(card => (
+                                <Card
+                                    key={card._id}
+                                    card={card}
+                                    onCardClick={props.onCardClick}
+                                />
                             ))}
                         </ul>
                     </section>

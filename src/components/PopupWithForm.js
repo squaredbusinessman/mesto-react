@@ -13,42 +13,13 @@ function PopupWithForm(props) {
 
     return (
         <>
-            {
-                (props.name === 'profile-edit' || props.name === 'new-post')
-                ?
-                <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
-                    <div className="popup__wrapper">
-                        <h2 className="popup__title">{props.title}</h2>
-                        <form
-                            className="popup__form"
-                            name={props.name}
-                            action="src/components/App#"
-                            method="post">
-
-                            {props.children}
-
-                            <button
-                                type="submit"
-                                className="popup__save-btn"
-                                aria-label="Кнопка отправки формы"
-                            >
-                                {props.submitButtonTitle}
-                            </button>
-                        </form>
-                    <button
-                        onClick={props.onClose}
-                        type="button"
-                        className="popup__close-btn"
-                        aria-label="Кнопка закрытия попапа"
-                    ></button>
-                    </div>
-                </div>
-                :
-                <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
-                    <form className="popup__form popup__form_type_avatar"
-                          name={props.name}
-                          action="src/components/App#"
-                          method="post">
+            <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
+                <div className="popup__wrapper popup__form_type_avatar">
+                    <form
+                        className="popup__form"
+                        name={props.name}
+                        action="src/components/App#"
+                        method="post">
                         <h2 className="popup__title">
                             {props.title}
                         </h2>
@@ -60,23 +31,18 @@ function PopupWithForm(props) {
                             className="popup__save-btn"
                             aria-label="Кнопка отправки формы"
                         >
-                            {
-                                (props.name === 'new-avatar')
-                                    ?
-                                    `Сохранить`
-                                    :
-                                    `Да`
-                            }
+                            {props.submitButtonTitle}
                         </button>
-                        <button
-                            onClick={props.onClose}
-                            type="button"
-                            className="popup__close-btn"
-                            aria-label="Кнопка закрытия попапа"
-                        ></button>
                     </form>
+                <button
+                    onClick={props.onClose}
+                    type="button"
+                    className="popup__close-btn"
+                    aria-label="Кнопка закрытия попапа"
+                ></button>
                 </div>
-            }
+            </div>
+
         </>
     );
 };

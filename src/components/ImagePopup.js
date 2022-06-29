@@ -10,7 +10,7 @@ const ImagePopup = (props) => {
                         src={props.card ? props.card.link : ''}
                         alt={props.card ? props.card.name : ''}
                     />
-                    <p className="popup__name"></p>
+                    <p className="popup__name">{props.card ? props.card.name : ''}</p>
                     <button
                         onClick={props.onClose}
                         type="button"

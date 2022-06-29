@@ -7,24 +7,29 @@ import React from "react";
 
 function App() {
 
-    const [isEditProfilePopupOpen, openEditProfilePopup] = React.useState(false);
+    const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
 
-    const [isAddPlacePopupOpen, openAddPlacePopup] = React.useState(false);
+    const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
 
-    const [isEditAvatarPopupOpen, openEditAvatarPopup] = React.useState(false);
+    const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
 
     function HandleEditAvatarClick() {
-        openEditAvatarPopup(true);
+        setEditAvatarPopup(true);
     }
 
     function HandleEditProfileClick() {
-        openEditProfilePopup(true);
+        setEditProfilePopup(true);
     }
 
     function  HandleAddPlaceClick() {
-        openAddPlacePopup(true);
+        setAddPlacePopup(true);
     }
 
+    function closeAllPopups() {
+        setEditAvatarPopup(false);
+        setEditProfilePopup(false);
+        setAddPlacePopup(false);
+    }
 
   return (
      <div className="App">
@@ -58,7 +63,12 @@ function App() {
             </li>
         </template>
 
-        <PopupWithForm name="profile-edit" title="Редактировать профиль" isOpen={isEditProfilePopupOpen}>
+        <PopupWithForm
+            name="profile-edit"
+            title="Редактировать профиль"
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+        >
             <label className="popup__label">
                 <input
                     type="text"
@@ -89,7 +99,12 @@ function App() {
             </label>
         </PopupWithForm>
 
-        <PopupWithForm name="new-post" title="Новое место" isOpen={isAddPlacePopupOpen}>
+        <PopupWithForm
+            name="new-post"
+            title="Новое место"
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+        >
             <label className="popup__label">
                 <input
                     type="text"
@@ -120,7 +135,12 @@ function App() {
             </label>
         </PopupWithForm>
 
-        <PopupWithForm name="new-avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen}>
+        <PopupWithForm
+            name="new-avatar"
+            title="Обновить аватар"
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+        >
             <label className="popup__label">
                 <input
                     className="popup__input popup__input_type-url"
@@ -136,7 +156,11 @@ function App() {
             </label>
         </PopupWithForm>
 
-        <PopupWithForm name="delete-confirm" title="Вы уверены?">
+        <PopupWithForm
+            name="delete-confirm"
+            title="Вы уверены?"
+            onClose={closeAllPopups}
+        >
             ''
         </PopupWithForm>
 

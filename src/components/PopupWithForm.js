@@ -16,7 +16,7 @@ function PopupWithForm(props) {
             {
                 (props.name === 'profile-edit' || props.name === 'new-post')
                 ?
-                <div className={`popup popup_id_${props.name}`}>
+                <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
                     <div className="popup__wrapper">
                         <h2 className="popup__title">{props.title}</h2>
                         <form
@@ -50,7 +50,7 @@ function PopupWithForm(props) {
                     </div>
                 </div>
                 :
-                <div className={`popup popup_id_${props.name}`}>
+                <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
                     <form className="popup__form popup__form_type_avatar"
                           name={props.name}
                           action="src/components/App#"

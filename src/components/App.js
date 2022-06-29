@@ -15,6 +15,8 @@ function App() {
 
     const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
 
+    const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = React.useState(false);
+
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
     }
@@ -27,10 +29,15 @@ function App() {
         setAddPlacePopup(true);
     }
 
+    function handleDeleteConfirmClick() {
+        setDeleteConfirmPopup(true);
+    }
+
     function closeAllPopups() {
         setEditAvatarPopup(false);
         setEditProfilePopup(false);
         setAddPlacePopup(false);
+        setDeleteConfirmPopup(false);
         setSelectedCard(null);
     }
 
@@ -46,6 +53,7 @@ function App() {
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
+            onRemoveBtnClick={handleDeleteConfirmClick}
         />
         <Footer />
 
@@ -151,6 +159,7 @@ function App() {
             name="delete-confirm"
             title="Вы уверены?"
             submitButtonTitle="Да"
+            isOpen={isDeleteConfirmPopupOpen}
             onClose={closeAllPopups}
         ></PopupWithForm>
 

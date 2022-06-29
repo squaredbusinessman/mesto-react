@@ -6,6 +6,7 @@ const Card = (props) => {
         props.onCardClick(props.card);
     }
 
+
     return (
         <>
             <li className="card">
@@ -27,6 +28,7 @@ const Card = (props) => {
                     </div>
                 </div>
                 <button
+                    onClick={props.onRemoveBtnClick}
                     type="button"
                     className="card__remove"
                     aria-label="Кнопка удаления поста"

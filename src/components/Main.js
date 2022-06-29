@@ -82,6 +82,7 @@ function Main(props) {
                                     key={card._id}
                                     card={card}
                                     onCardClick={props.onCardClick}
+                                    onRemoveBtnClick={props.onRemoveBtnClick}
                                 />
                             ))}
                         </ul>

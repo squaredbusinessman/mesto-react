@@ -32,13 +32,7 @@ function PopupWithForm(props) {
                                 className="popup__save-btn"
                                 aria-label="Кнопка отправки формы"
                             >
-                                {
-                                    (props.name === 'profile-edit')
-                                        ?
-                                        `Сохранить`
-                                        :
-                                        `Создать`
-                                }
+                                {props.submitButtonTitle}
                             </button>
                         </form>
                     <button

@@ -59,6 +59,7 @@ function App() {
 
         <PopupWithForm
             name="profile-edit"
+            wrapperClass="popup__wrapper_type"
             title="Редактировать профиль"
             submitButtonTitle="Сохранить"
             isOpen={isEditProfilePopupOpen}
@@ -135,6 +136,7 @@ function App() {
 
         <PopupWithForm
             name="new-avatar"
+            wrapperClass="popup__wrapper_type_avatar"
             title="Обновить аватар"
             submitButtonTitle="Сохранить"
             isOpen={isEditAvatarPopupOpen}
@@ -157,6 +159,7 @@ function App() {
 
         <PopupWithForm
             name="delete-confirm"
+            wrapperClass="popup__wrapper_type_confirm"
             title="Вы уверены?"
             submitButtonTitle="Да"
             isOpen={isDeleteConfirmPopupOpen}

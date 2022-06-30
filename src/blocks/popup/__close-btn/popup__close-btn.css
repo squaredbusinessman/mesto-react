@@ -1,5 +1,6 @@
 .popup__close-btn {
   position: absolute;
+  padding: 0;
   top: -40px;
   right: -40px;
   width: 32px;
@@ -60,16 +61,32 @@
   }
 }
 
-.popup__form .popup__close-btn {
+.popup__wrapper_type_confirm .popup__close-btn {
   right: -30px;
+  top: -30px;
 }
 
-.popup__form .popup__close-btn:before {
+.popup__wrapper_type_confirm .popup__close-btn:before {
   width: 32px;
   height: 4px;
 }
 
-.popup__form .popup__close-btn:after {
+.popup__wrapper_type_confirm .popup__close-btn:after {
+  width: 32px;
+  height: 4px;
+}
+
+.popup__wrapper_type_avatar .popup__close-btn {
+  right: -30px;
+  top: -30px;
+}
+
+.popup__wrapper_type_avatar .popup__close-btn:before {
+  width: 32px;
+  height: 4px;
+}
+
+.popup__wrapper_type_avatar .popup__close-btn:after {
   width: 32px;
   height: 4px;
 }

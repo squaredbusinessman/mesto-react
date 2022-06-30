@@ -5,8 +5,6 @@ import React from 'react';
         - «Новое место» new-post
         - «Обновить аватар» new-avatar
         - «Вы уверены?» delete-confirm
-
-
 */
 
 function PopupWithForm(props) {
@@ -14,15 +12,15 @@ function PopupWithForm(props) {
     return (
         <>
             <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
-                <div className="popup__wrapper popup__form_type_avatar">
+                <div className={`popup__wrapper ${props.wrapperClass || ''}`}>
+                    <h2 className="popup__title">
+                        {props.title}
+                    </h2>
                     <form
                         className="popup__form"
                         name={props.name}
                         action="src/components/App#"
                         method="post">
-                        <h2 className="popup__title">
-                            {props.title}
-                        </h2>
 
                         {props.children}
 
@@ -42,9 +40,8 @@ function PopupWithForm(props) {
                 ></button>
                 </div>
             </div>
-
         </>
     );
-};
+}
 
 export default PopupWithForm;

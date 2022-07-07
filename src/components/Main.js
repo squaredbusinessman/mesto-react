@@ -1,32 +1,22 @@
-import React from 'react';
+import {useContext, useEffect, useState} from "react";
 import api from "../utils/api";
 import Card from "./Card";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
 
-    const [error, setError] = React.useState(null);
-    const [isLoaded, setIsLoaded] = React.useState(false);
-    const [cards, setCards] = React.useState([]);
-    const [user, setUserData] = React.useState({
-        name: '',
-        about: '',
-        avatar: '',
-    });
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [cards, setCards] = useState([]);
 
-    React.useEffect(() => {
+    const currentUser = useContext(CurrentUserContext);
 
-        api.getAllData().then(
-            (allData) => {
+    useEffect(() => {
 
-                const [ userData, cardsData ] = allData;
+        api.getCards().then(
+            (cardsData) => {
 
                 setIsLoaded(true);
-                setUserData({
-                    ...user,
-                    name: userData.name,
-                    about: userData.about,
-                    avatar: userData.avatar,
-                });
                 setCards(cardsData);
             },
             (error) => {
@@ -48,7 +38,7 @@ function Main(props) {
                         <div className="user__avatar-wrapper">
                             <img
                                 className="user__avatar"
-                                src={user.avatar}
+                                src={currentUser.avatar}
                                 alt="Аватарка пользователя"
                             />
                             <button
@@ -59,14 +49,14 @@ function Main(props) {
                             ></button>
                         </div>
                         <div className="user__text-wrapper">
-                            <h1 className="user__name">{user.name}</h1>
+                            <h1 className="user__name">{currentUser.name}</h1>
                             <button
                                 onClick={props.onEditProfile}
                                 type="button"
                                 className="user__nick-editor-btn"
                                 aria-label="Кнопка редактирования Имени и доп. информации пользователя"
                             ></button>
-                            <p className="user__about">{user.about}</p>
+                            <p className="user__about">{currentUser.about}</p>
                         </div>
                         <button
                             onClick={props.onAddPlace}

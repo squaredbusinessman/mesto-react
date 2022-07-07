@@ -31,6 +31,7 @@
 @import url(./blocks/card/__likes-counter/card__likes-counter.css);
 @import url(./blocks/card/__like/_active/card__like_active.css);
 @import url(./blocks/card/__remove/card__remove.css);
+@import url(./blocks/card/__remove/_visible/card__remove_visible.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);

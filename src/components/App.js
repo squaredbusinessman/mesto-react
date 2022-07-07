@@ -3,19 +3,29 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import api from "../utils/api";
 
 function App() {
 
-    const [selectedCard, setSelectedCard] = React.useState(null);
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [currentUser, setCurrentUser] = useState({
+        name: '',
+        about: '',
+        avatar: '',
+        id: '',
+    })
 
-    const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
+    const [selectedCard, setSelectedCard] = useState(null);
 
-    const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
+    const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
 
-    const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
+    const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
 
-    const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = React.useState(false);
+    const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
+
+    const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = useState(false);
 
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
@@ -44,6 +54,24 @@ function App() {
     function handleCardClick(cardData) {
         setSelectedCard(cardData);
     }
+
+    useEffect(() => {
+        api.getProfile().then(
+            (userData) => {
+                setCurrentUser({
+                    ...currentUser,
+                    name: userData.name,
+                    about: userData.about,
+                    avatar: userData.avatar,
+                    id: userData._id,
+                })
+            },
+            (err) => {
+                setIsLoaded(true);
+                setError(error);
+            }
+        )
+    }, []);
 
   return (
      <div className="App">

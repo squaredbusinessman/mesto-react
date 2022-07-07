@@ -11,6 +11,10 @@ const Card = (props) => {
         props.onCardLike(props.card);
     }
 
+    function handleRemoveClick() {
+        props.onCardRemove(props.card);
+    }
+
     const currentUser = useContext(CurrentUserContext);
 
     // Определяем владельца карточки
@@ -50,7 +54,7 @@ const Card = (props) => {
                     </div>
                 </div>
                 <button
-                    onClick={props.onRemoveBtnClick}
+                    onClick={handleRemoveClick}
                     type="button"
                     className={cardRemoveButtonClassName}
                     aria-label="Кнопка удаления поста"

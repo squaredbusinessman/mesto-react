@@ -9,12 +9,10 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function App() {
 
-    const [error, setError] = useState(null);
     const [currentUser, setCurrentUser] = useState({
         name: '',
         about: '',
         avatar: '',
-        id: '',
     })
 
     const [selectedCard, setSelectedCard] = useState(null);
@@ -63,11 +61,11 @@ function App() {
                     name: userData.name,
                     about: userData.about,
                     avatar: userData.avatar,
-                    id: userData._id,
+                    _id: userData._id
                 })
             },
             (error) => {
-                setError(error);
+                console.log(error);
             }
         )
     }, [currentUser]);

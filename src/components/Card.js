@@ -7,6 +7,10 @@ const Card = (props) => {
         props.onCardClick(props.card);
     }
 
+    function handleLikeClick() {
+        props.onCardLike(props.card);
+    }
+
     const currentUser = useContext(CurrentUserContext);
 
     // Определяем владельца карточки
@@ -19,7 +23,9 @@ const Card = (props) => {
     // Проверяем, есть ли у карточки лайк, поставленный текущим пользователем
     const isLiked = props.card.likes.some(like => like._id === currentUser._id);
 
-    const cardLikeButtonClassName = `card__like_active`;
+    const cardLikeButtonClassName = (
+        `card__like ${isLiked ? `card__like_active` : ''}`
+    );
 
 
     return (
@@ -35,8 +41,9 @@ const Card = (props) => {
                     <h2 className="card__title">{props.card.name}</h2>
                     <div className="card__like-wrapper">
                         <button
+                            onClick={handleLikeClick}
                             type="button"
-                            className="card__like"
+                            className={cardLikeButtonClassName}
                             aria-label="Кнопка нравится"
                         ></button>
                         <span className="card__likes-counter">{props.card.likes.length}</span>
@@ -45,7 +52,7 @@ const Card = (props) => {
                 <button
                     onClick={props.onRemoveBtnClick}
                     type="button"
-                    className="card__remove"
+                    className={cardRemoveButtonClassName}
                     aria-label="Кнопка удаления поста"
                 ></button>
             </li>

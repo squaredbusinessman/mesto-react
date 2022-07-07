@@ -11,11 +11,19 @@ function Main(props) {
 
     const currentUser = useContext(CurrentUserContext);
 
+    function handleCardLike(card) {
+        // проверяем лайк
+        const isLiked = card.likes.some(like => like._id === currentUser._id);
+        // отправляем запрос в АПИ и получаем обновленные данные карточки
+        api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+            setCards((state) => state.map(c => c._id === card._id ? newCard : c))
+        });
+    }
+
     useEffect(() => {
 
         api.getCards().then(
             (cardsData) => {
-
                 setIsLoaded(true);
                 setCards(cardsData);
             },
@@ -23,8 +31,7 @@ function Main(props) {
                 setIsLoaded(true);
                 setError(error);
             }
-            )
-    }, []);
+        )}, []);
 
     if (error) {
         return <div>Ошибка: {error.message}</div>;
@@ -72,6 +79,7 @@ function Main(props) {
                                     key={card._id}
                                     card={card}
                                     onCardClick={props.onCardClick}
+                                    onCardLike={handleCardLike}
                                     onRemoveBtnClick={props.onRemoveBtnClick}
                                 />
                             ))}

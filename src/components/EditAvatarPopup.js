@@ -1,7 +1,28 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
+
+    const inputUrlRef = useRef();
+
+    const [avatarUrl, setAvatarUrl] = useState();
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+
+        props.onUpdateAvatar({
+            avatar: avatarUrl,
+        });
+    }
+
+    function handleOnChange() {
+        setAvatarUrl(inputUrlRef.current.value);
+    }
+
+    useEffect(() => {
+        inputUrlRef.current.value = '';
+    }, [props.isOpen])
+
     return (
         <PopupWithForm
             name="new-avatar"
@@ -10,6 +31,7 @@ const EditAvatarPopup = (props) => {
             submitButtonTitle="Сохранить"
             isOpen={props.isOpen}
             onClose={props.onClose}
+            onSubmit={handleSubmit}
         >
             <label className="popup__label">
                 <input
@@ -21,6 +43,8 @@ const EditAvatarPopup = (props) => {
                     aria-label="Поле ввода для ссылки на новый аватар"
                     pattern="https?://.+"
                     required
+                    ref={inputUrlRef}
+                    onChange={handleOnChange}
                 />
                 <span className="popup__input-error popup__input-avatar-url-error"></span>
             </label>

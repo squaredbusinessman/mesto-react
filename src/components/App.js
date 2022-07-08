@@ -27,6 +27,8 @@ function App() {
 
     const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = useState(false);
 
+    const [cards, setCards] = useState([]);
+
     useEffect(() => {
         api.getProfile().then(
             (userData) => {
@@ -98,7 +100,39 @@ function App() {
             })
     }
 
-  return (
+    function handleCardLike(card) {
+        // проверяем лайк
+        const isLiked = card.likes.some(like => like._id === currentUser._id);
+        // отправляем запрос в АПИ и получаем обновленные данные карточки
+        api.changeLikeCardStatus(card._id, !isLiked)
+            .then((newCard) => {
+                setCards(
+                    (state) => state.map(
+                        c => c._id === card._id ? newCard : c
+                    )
+                )
+            });
+    }
+
+    function handleCardRemove(card) {
+        api.deleteCard(card._id)
+            .then(() => {
+                setCards(
+                    (state) => state.filter((
+                            c => c._id !== card._id
+                        )
+                    ))
+            })
+    }
+
+    useEffect(() => {
+        api.getCards().then(
+            (cardsData) => {
+                setCards(cardsData);
+            }
+        )}, []);
+
+    return (
      <div className="App">
         <CurrentUserContext.Provider value={currentUser}>
             <Header />
@@ -108,6 +142,9 @@ function App() {
                 onAddPlace={handleAddPlaceClick}
                 onCardClick={handleCardClick}
                 onRemoveBtnClick={handleDeleteConfirmClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardRemove={handleCardRemove}
             />
             <Footer />
 
@@ -175,7 +212,7 @@ function App() {
             />
         </CurrentUserContext.Provider>
     </div>
-  );
+    );
 }
 
 export default App;

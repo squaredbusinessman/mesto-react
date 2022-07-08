@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import api from "../utils/api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
 
@@ -141,28 +142,10 @@ function App() {
                 </label>
             </PopupWithForm>
 
-            <PopupWithForm
-                name="new-avatar"
-                wrapperClass="popup__wrapper_type_avatar"
-                title="Обновить аватар"
-                submitButtonTitle="Сохранить"
+            <EditAvatarPopup
                 isOpen={isEditAvatarPopupOpen}
                 onClose={closeAllPopups}
-            >
-                <label className="popup__label">
-                    <input
-                        className="popup__input popup__input_type-url"
-                        type="url"
-                        id="popup__input-avatar-url"
-                        name="newAvatarUrl"
-                        placeholder="Ссылка на картинку"
-                        aria-label="Поле ввода для ссылки на новый аватар"
-                        pattern="https?://.+"
-                        required
-                    />
-                    <span className="popup__input-error popup__input-avatar-url-error"></span>
-                </label>
-            </PopupWithForm>
+            />
 
             <PopupWithForm
                 name="delete-confirm"

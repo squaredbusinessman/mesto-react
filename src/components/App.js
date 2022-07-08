@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup";
 import {useEffect, useState} from "react";
 import api from "../utils/api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
 
@@ -83,45 +84,7 @@ function App() {
             />
             <Footer />
 
-            <PopupWithForm
-                name="profile-edit"
-                wrapperClass="popup__wrapper_type"
-                title="Редактировать профиль"
-                submitButtonTitle="Сохранить"
-                isOpen={isEditProfilePopupOpen}
-                onClose={closeAllPopups}
-            >
-                <label className="popup__label">
-                    <input
-                        type="text"
-                        className="popup__input popup__input_type_name"
-                        id="popup__input-nickname"
-                        name="name"
-                        aria-label="Поле ввода имени пользователя"
-                        placeholder="Введите имя профиля"
-                        minLength="2"
-                        maxLength="40"
-                        autoComplete="off"
-                        required
-                    />
-                    <span className="popup__input-error popup__input-nickname-error"></span>
-                </label>
-                <label className="popup__label">
-                    <input
-                        type="text"
-                        className="popup__input popup__input_type_about"
-                        id="popup__input-about"
-                        name="about"
-                        aria-label="Поле ввода информации о пользователе"
-                        placeholder="Введите информацию о вас"
-                        minLength="2"
-                        maxLength="200"
-                        autoComplete="off"
-                        required
-                    />
-                    <span className="popup__input-error popup__input-about-error"></span>
-                </label>
-            </PopupWithForm>
+            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
             <PopupWithForm
                 name="new-post"

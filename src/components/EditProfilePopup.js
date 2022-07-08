@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 const EditProfilePopup = (props) => {
+
+    const [name, setName] = useState('');
+    const [about, setAbout] = useState('');
+
+    function handleChange(evt) {
+        evt.target.classList.contains('popup__input_type_name')
+            ?
+            setName(evt.target.value)
+            :
+            setAbout(evt.target.value);
+    }
+
     return (
         <PopupWithForm
             name="profile-edit"
@@ -18,7 +30,8 @@ const EditProfilePopup = (props) => {
                     id="popup__input-nickname"
                     name="name"
                     aria-label="Поле ввода имени пользователя"
-                    placeholder="Введите имя профиля"
+                    value={name}
+                    onChange={handleChange}
                     minLength="2"
                     maxLength="40"
                     autoComplete="off"
@@ -33,7 +46,8 @@ const EditProfilePopup = (props) => {
                     id="popup__input-about"
                     name="about"
                     aria-label="Поле ввода информации о пользователе"
-                    placeholder="Введите информацию о вас"
+                    value={about}
+                    onChange={handleChange}
                     minLength="2"
                     maxLength="200"
                     autoComplete="off"

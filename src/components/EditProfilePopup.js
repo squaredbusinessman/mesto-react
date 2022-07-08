@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
@@ -9,12 +9,20 @@ const EditProfilePopup = (props) => {
     const [name, setName] = useState('');
     const [about, setAbout] = useState('');
 
-    function handleChange(evt) {
-        evt.target.classList.contains('popup__input_type_name')
-            ?
-            setName(evt.target.value)
-            :
-            setAbout(evt.target.value);
+    function handleNameChange(evt) {
+        setName(evt.target.value);
+    }
+
+    function handleAboutChange(evt) {
+        setAbout(evt.target.value);
+    }
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        props.onUpdateUserProfile({
+            name,
+            about,
+        });
     }
 
     useEffect(() => {
@@ -30,6 +38,7 @@ const EditProfilePopup = (props) => {
             submitButtonTitle="Сохранить"
             isOpen={props.isOpen}
             onClose={props.onClose}
+            onSubmit={handleSubmit}
         >
             <label className="popup__label">
                 <input
@@ -39,7 +48,7 @@ const EditProfilePopup = (props) => {
                     name="name"
                     aria-label="Поле ввода имени пользователя"
                     value={name}
-                    onChange={handleChange}
+                    onChange={handleNameChange}
                     minLength="2"
                     maxLength="40"
                     autoComplete="off"
@@ -55,7 +64,7 @@ const EditProfilePopup = (props) => {
                     name="about"
                     aria-label="Поле ввода информации о пользователе"
                     value={about}
-                    onChange={handleChange}
+                    onChange={handleAboutChange}
                     minLength="2"
                     maxLength="200"
                     autoComplete="off"

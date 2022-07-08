@@ -1,12 +1,5 @@
 import React from 'react';
 
-/* Компонент для общего кода попапов:
-        - «Редактировать профиль» profile-edit
-        - «Новое место» new-post
-        - «Обновить аватар» new-avatar
-        - «Вы уверены?» delete-confirm
-*/
-
 function PopupWithForm(props) {
 
     return (
@@ -20,7 +13,8 @@ function PopupWithForm(props) {
                         className="popup__form"
                         name={props.name}
                         action="src/components/App#"
-                        method="post">
+                        method="post"
+                        onSubmit={props.onSubmit}>
 
                         {props.children}
 

@@ -26,6 +26,23 @@ function App() {
 
     const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = useState(false);
 
+    useEffect(() => {
+        api.getProfile().then(
+            (userData) => {
+                setCurrentUser({
+                    ...currentUser,
+                    name: userData.name,
+                    about: userData.about,
+                    avatar: userData.avatar,
+                    _id: userData._id
+                })
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }, []);
+
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
     }
@@ -54,22 +71,19 @@ function App() {
         setSelectedCard(cardData);
     }
 
-    useEffect(() => {
-        api.getProfile().then(
-            (userData) => {
+    function handleUpdateProfile(data) {
+        api.updateProfile(data)
+            .then((res) => {
+
                 setCurrentUser({
                     ...currentUser,
-                    name: userData.name,
-                    about: userData.about,
-                    avatar: userData.avatar,
-                    _id: userData._id
+                    name: res.name,
+                    about: res.about,
                 })
-            },
-            (error) => {
-                console.log(error);
-            }
-        )
-    }, [currentUser]);
+
+                closeAllPopups();
+            })
+    }
 
   return (
      <div className="App">
@@ -84,7 +98,11 @@ function App() {
             />
             <Footer />
 
-            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+            <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                onUpdateUserProfile={handleUpdateProfile}
+            />
 
             <PopupWithForm
                 name="new-post"

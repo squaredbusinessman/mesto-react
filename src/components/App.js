@@ -101,6 +101,15 @@ function App() {
             })
     }
 
+    function handleAddPlaceSubmit(newData) {
+        api.addCard(newData)
+            .then((newCard) => {
+                setCards([newCard, ...cards])
+
+                closeAllPopups();
+            })
+    }
+
     function handleCardLike(card) {
         // проверяем лайк
         const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -158,6 +167,7 @@ function App() {
             <AddPlacePopup
                 isOpen={isAddPlacePopupOpen}
                 onClose={closeAllPopups}
+                onAddPlace={handleAddPlaceSubmit}
             />
 
             <EditAvatarPopup

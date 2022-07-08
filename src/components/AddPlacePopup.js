@@ -1,7 +1,26 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 const AddPlacePopup = (props) => {
+
+    const placeNameRef = useRef();
+
+    const placeUrlRef = useRef();
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+
+        props.onAddPlace({
+            name: placeNameRef.current.value,
+            link: placeUrlRef.current.value,
+        })
+    }
+
+    useEffect(() => {
+        placeNameRef.current.value = '';
+        placeUrlRef.current.value = '';
+    }, [props.isOpen])
+
     return (
         <PopupWithForm
             name="new-post"
@@ -9,6 +28,7 @@ const AddPlacePopup = (props) => {
             submitButtonTitle="Создать"
             isOpen={props.isOpen}
             onClose={props.onClose}
+            onSubmit={handleSubmit}
         >
             <label className="popup__label">
                 <input
@@ -22,6 +42,7 @@ const AddPlacePopup = (props) => {
                     maxLength="30"
                     autoComplete="off"
                     required
+                    ref={placeNameRef}
                 />
                 <span className="popup__input-error popup__input-place-name-error"></span>
             </label>
@@ -35,6 +56,7 @@ const AddPlacePopup = (props) => {
                     placeholder="Ссылка на картинку"
                     autoComplete="off"
                     required
+                    ref={placeUrlRef}
                 />
                 <span className="popup__input-error popup__input-src-error"></span>
             </label>

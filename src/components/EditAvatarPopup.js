@@ -1,22 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
 
     const inputUrlRef = useRef();
 
-    const [avatarUrl, setAvatarUrl] = useState();
-
     function handleSubmit(evt) {
         evt.preventDefault();
 
         props.onUpdateAvatar({
-            avatar: avatarUrl,
+            avatar: inputUrlRef.current.value,
         });
-    }
-
-    function handleOnChange() {
-        setAvatarUrl(inputUrlRef.current.value);
     }
 
     useEffect(() => {
@@ -44,7 +38,6 @@ const EditAvatarPopup = (props) => {
                     pattern="https?://.+"
                     required
                     ref={inputUrlRef}
-                    onChange={handleOnChange}
                 />
                 <span className="popup__input-error popup__input-avatar-url-error"></span>
             </label>

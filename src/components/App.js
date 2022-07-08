@@ -8,6 +8,7 @@ import api from "../utils/api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
 
@@ -154,42 +155,10 @@ function App() {
                 onUpdateUserProfile={handleUpdateProfile}
             />
 
-            <PopupWithForm
-                name="new-post"
-                title="Новое место"
-                submitButtonTitle="Создать"
+            <AddPlacePopup
                 isOpen={isAddPlacePopupOpen}
                 onClose={closeAllPopups}
-            >
-                <label className="popup__label">
-                    <input
-                        type="text"
-                        className="popup__input popup__input_type_name"
-                        id="popup__input-place-name"
-                        name="name"
-                        aria-label="Поле ввода названия"
-                        placeholder="Название"
-                        minLength="2"
-                        maxLength="30"
-                        autoComplete="off"
-                        required
-                    />
-                    <span className="popup__input-error popup__input-place-name-error"></span>
-                </label>
-                <label className="popup__label">
-                    <input
-                        type="url"
-                        className="popup__input popup__input_type_about"
-                        id="popup__input-src"
-                        name="link"
-                        aria-label="Поле ввода ссылки"
-                        placeholder="Ссылка на картинку"
-                        autoComplete="off"
-                        required
-                    />
-                    <span className="popup__input-error popup__input-src-error"></span>
-                </label>
-            </PopupWithForm>
+            />
 
             <EditAvatarPopup
                 isOpen={isEditAvatarPopupOpen}

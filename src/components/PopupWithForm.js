@@ -1,6 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 function PopupWithForm(props) {
+
+
+    useEffect(() => {
+        function handleEscClose(evt) {
+            if (evt.key === 'Escape') {
+                props.onClose();
+            }
+        }
+
+        document.onkeydown = handleEscClose;
+    }, []);
+
+    useEffect(() => {
+        function handleOverlayClose(evt) {
+            evt.stopPropagation();
+            if (evt.target.classList.contains('popup_visible')) {
+                props.onClose();
+            }
+        }
+
+        document.onmousedown = handleOverlayClose;
+    }, []);
 
     return (
         <div className={`popup popup_id_${props.name} ${props.isOpen && 'popup_visible'}`}>

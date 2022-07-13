@@ -3,7 +3,7 @@ import React from 'react';
 function PopupWithForm(props) {
 
     return (
-        <div className={`popup popup_id_${props.name} ${props.isOpen ? 'popup_visible' : ''}`}>
+        <div className={`popup popup_id_${props.name} ${props.isOpen && 'popup_visible'}`}>
             <div className={`popup__wrapper ${props.wrapperClass || ''}`}>
                 <h2 className="popup__title">
                     {props.title}

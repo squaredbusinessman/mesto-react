@@ -2,7 +2,7 @@ import React from 'react';
 
 const ImagePopup = (props) => {
     return (
-        <div className={`popup popup_id_big-picture ${props.card ? 'popup_visible' : ''}`}>
+        <div className={`popup popup_id_big-picture ${props.card && 'popup_visible'}`}>
             <div className="popup__container">
                 <img
                     className="popup__img"

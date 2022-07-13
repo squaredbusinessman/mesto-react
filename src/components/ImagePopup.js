@@ -6,8 +6,8 @@ const ImagePopup = (props) => {
             <div className="popup__container">
                 <img
                     className="popup__img"
-                    src={props.card ? props.card.link : ''}
-                    alt={props.card ? props.card.name : ''}
+                    src={props.card?.link}
+                    alt={props.card?.name}
                 />
                 <p className="popup__name">{props.card ? props.card.name : ''}</p>
                 <button

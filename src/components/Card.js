@@ -33,34 +33,32 @@ const Card = (props) => {
 
 
     return (
-        <>
-            <li className="card">
-                <img
-                    onClick={selectedCardClick}
-                    className="card__pic"
-                    src={props.card.link}
-                    alt={props.card.name}
-                />
-                <div className="card__text-wrapper">
-                    <h2 className="card__title">{props.card.name}</h2>
-                    <div className="card__like-wrapper">
-                        <button
-                            onClick={handleLikeClick}
-                            type="button"
-                            className={cardLikeButtonClassName}
-                            aria-label="Кнопка нравится"
-                        ></button>
-                        <span className="card__likes-counter">{props.card.likes.length}</span>
-                    </div>
+        <li className="card">
+            <img
+                onClick={selectedCardClick}
+                className="card__pic"
+                src={props.card.link}
+                alt={props.card.name}
+            />
+            <div className="card__text-wrapper">
+                <h2 className="card__title">{props.card.name}</h2>
+                <div className="card__like-wrapper">
+                    <button
+                        onClick={handleLikeClick}
+                        type="button"
+                        className={cardLikeButtonClassName}
+                        aria-label="Кнопка нравится"
+                    ></button>
+                    <span className="card__likes-counter">{props.card.likes.length}</span>
                 </div>
-                <button
-                    onClick={handleRemoveClick}
-                    type="button"
-                    className={cardRemoveButtonClassName}
-                    aria-label="Кнопка удаления поста"
-                ></button>
-            </li>
-        </>
+            </div>
+            <button
+                onClick={handleRemoveClick}
+                type="button"
+                className={cardRemoveButtonClassName}
+                aria-label="Кнопка удаления поста"
+            ></button>
+        </li>
     );
 };
 

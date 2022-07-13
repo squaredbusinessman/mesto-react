@@ -42,10 +42,24 @@ function App() {
                 })
             },
             (error) => {
-                console.log(error);
+                console.log(
+                    `Произошла ошибка при получении данных профиля пользователя - ${error}`
+                );
             }
         )
     }, []);
+
+    useEffect(() => {
+        api.getCards().then(
+            (cardsData) => {
+                setCards(cardsData);
+            },
+            (error) => {
+                console.log(
+                    `Произошла ошибка получении карточек с сервера - ${error}`
+                );
+            }
+        )}, []);
 
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
@@ -86,7 +100,12 @@ function App() {
                 })
 
                 closeAllPopups();
-            })
+            },
+                (error) => {
+                    console.log(
+                        `Произошла ошибка при обновлении профиля пользователя - ${error}`
+                    );
+                })
     }
 
     function handleUpdateAvatar(newUrl) {
@@ -98,7 +117,12 @@ function App() {
                 })
 
                 closeAllPopups();
-            })
+            },
+                (error) => {
+                    console.log(
+                        `Произошла ошибка при обновлении аватара пользователя - ${error}`
+                    );
+                })
     }
 
     function handleAddPlaceSubmit(newData) {
@@ -107,7 +131,12 @@ function App() {
                 setCards([newCard, ...cards])
 
                 closeAllPopups();
-            })
+            },
+                (error) => {
+                    console.log(
+                        `Произошла ошибка при создании новой карточки - ${error}`
+                    );
+                })
     }
 
     function handleCardLike(card) {
@@ -121,7 +150,12 @@ function App() {
                         c => c._id === card._id ? newCard : c
                     )
                 )
-            });
+            },
+                (error) => {
+                    console.log(
+                        `Произошла ошибка при лайке/дизлайке карточки - ${error}`
+                    );
+                });
     }
 
     function handleCardRemove(card) {
@@ -132,15 +166,13 @@ function App() {
                             c => c._id !== card._id
                         )
                     ))
-            })
+            },
+                (error) => {
+                    console.log(
+                        `Произошла ошибка при удалении карточки - ${error}`
+                    );
+                })
     }
-
-    useEffect(() => {
-        api.getCards().then(
-            (cardsData) => {
-                setCards(cardsData);
-            }
-        )}, []);
 
     return (
      <div className="App">

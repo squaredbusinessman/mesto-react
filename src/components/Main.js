@@ -47,7 +47,6 @@ function Main(props) {
                             card={card}
                             onCardClick={props.onCardClick}
                             onCardLike={props.onCardLike}
-                            onCardRemove={props.onCardRemove}
                             onRemoveBtnClick={props.onRemoveBtnClick}
                         />
                     ))}

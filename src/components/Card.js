@@ -12,7 +12,7 @@ const Card = (props) => {
     }
 
     function handleRemoveClick() {
-        props.onCardRemove(props.card);
+        props.onRemoveBtnClick(props.card);
     }
 
     const currentUser = useContext(CurrentUserContext);

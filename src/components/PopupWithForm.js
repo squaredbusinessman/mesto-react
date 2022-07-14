@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 
 function PopupWithForm(props) {
 
-
     useEffect(() => {
         function handleEscClose(evt) {
             if (evt.key === 'Escape') {

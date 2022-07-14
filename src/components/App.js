@@ -1,7 +1,6 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import {useEffect, useState} from "react";
 import api from "../utils/api";
@@ -9,6 +8,7 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 function App() {
 
@@ -27,6 +27,8 @@ function App() {
     const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
 
     const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = useState(false);
+
+    const [isImagePopupOpen, setImagePopupOpen] = useState(false);
 
     const [cards, setCards] = useState([]);
 
@@ -73,19 +75,22 @@ function App() {
         setAddPlacePopup(true);
     }
 
-    function handleDeleteConfirmClick() {
-        setDeleteConfirmPopup(true);
-    }
-
     function closeAllPopups() {
         setEditAvatarPopup(false);
         setEditProfilePopup(false);
         setAddPlacePopup(false);
         setDeleteConfirmPopup(false);
+        setImagePopupOpen(false);
         setSelectedCard(null);
     }
 
     function handleCardClick(cardData) {
+        setSelectedCard(cardData);
+        setImagePopupOpen(true);
+    }
+
+    function handleDeleteConfirmClick(cardData) {
+        setDeleteConfirmPopup(true);
         setSelectedCard(cardData);
     }
 
@@ -161,6 +166,7 @@ function App() {
     function handleCardRemove(card) {
         api.deleteCard(card._id)
             .then(() => {
+
                 setCards(
                     (state) => state.filter((
                             c => c._id !== card._id
@@ -186,7 +192,6 @@ function App() {
                 onRemoveBtnClick={handleDeleteConfirmClick}
                 cards={cards}
                 onCardLike={handleCardLike}
-                onCardRemove={handleCardRemove}
             />
             <Footer />
 
@@ -208,17 +213,20 @@ function App() {
                 onUpdateAvatar={handleUpdateAvatar}
             />
 
-            <PopupWithForm
+            <ConfirmDeletePopup
                 name="delete-confirm"
                 wrapperClass="popup__wrapper_type_confirm"
                 title="Вы уверены?"
                 submitButtonTitle="Да"
+                onRemoveCard={handleCardRemove}
                 isOpen={isDeleteConfirmPopupOpen}
                 onClose={closeAllPopups}
-            ></PopupWithForm>
+                card={selectedCard}
+            />
 
             <ImagePopup
                 card={selectedCard}
+                isOpen={isImagePopupOpen}
                 onClose={closeAllPopups}
             />
         </CurrentUserContext.Provider>

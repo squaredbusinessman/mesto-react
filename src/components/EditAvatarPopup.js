@@ -19,8 +19,8 @@ const EditAvatarPopup = (props) => {
 
     return (
         <PopupWithForm
-            name="new-avatar"
-            wrapperClass="popup__wrapper_type_avatar"
+            name="popup popup_id_new-avatar"
+            wrapperClass="popup__wrapper popup__wrapper_type_avatar"
             title="Обновить аватар"
             submitButtonTitle="Сохранить"
             isOpen={props.isOpen}

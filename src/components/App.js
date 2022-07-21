@@ -201,7 +201,8 @@ function App() {
 
     function onSignOut() {}
 
-    function onLogin() {
+    function onLogin(evt) {
+        evt.preventDefault();
         setLoggedIn(true);
     }
 
@@ -249,8 +250,9 @@ function App() {
                         onUpdateAvatar={handleUpdateAvatar}
                     />
                     <ConfirmDeletePopup
+                        formClassName="popup popup_id_delete-confirm"
                         name="delete-confirm"
-                        wrapperClass="popup__wrapper_type_confirm"
+                        wrapperClass="popup__wrapper popup__wrapper_type_confirm"
                         title="Вы уверены?"
                         submitButtonTitle="Да"
                         onRemoveCard={handleCardRemove}

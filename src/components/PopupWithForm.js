@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 
 function PopupWithForm(props) {
 
+    const formMainClass = props.formClassName.split(' ')[0];
+
     useEffect(() => {
         function handleEscClose(evt) {
             if (evt.key === 'Escape') {
@@ -24,13 +26,13 @@ function PopupWithForm(props) {
     }, []);
 
     return (
-        <div className={`popup popup_id_${props.name} ${props.isOpen && 'popup_visible'}`}>
-            <div className={`popup__wrapper ${props.wrapperClass || ''}`}>
-                <h2 className="popup__title">
+        <div className={`${props.formClassName} ${props.isOpen && 'popup_visible'}`}>
+            <div className={`${props.wrapperClass || ''}`}>
+                <h2 className={`${formMainClass}__title`}>
                     {props.title}
                 </h2>
                 <form
-                    className="popup__form"
+                    className={`${formMainClass}__form`}
                     name={props.name}
                     action="src/components/App#"
                     method="post"
@@ -40,18 +42,31 @@ function PopupWithForm(props) {
 
                     <button
                         type="submit"
-                        className="popup__save-btn"
+                        className={`${formMainClass}__save-btn`}
                         aria-label="Кнопка отправки формы"
                     >
                         {props.submitButtonTitle}
                     </button>
+                    {
+                        props.isRegisterForm
+                        &&
+                        <span className="register-form__go-login">
+                            <a href="/sign-in">
+                                Войти
+                            </a>
+                        </span>
+                    }
                 </form>
-            <button
-                onClick={props.onClose}
-                type="button"
-                className="popup__close-btn"
-                aria-label="Кнопка закрытия попапа"
-            ></button>
+                {
+                    props.onClose
+                    &&
+                    <button
+                        onClick={props.onClose}
+                        type="button"
+                        className="popup__close-btn"
+                        aria-label="Кнопка закрытия попапа"
+                    ></button>
+                }
             </div>
         </div>
     );

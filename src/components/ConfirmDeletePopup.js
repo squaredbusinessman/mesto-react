@@ -13,6 +13,7 @@ const ConfirmDeletePopup = (props) => {
 
     return (
         <PopupWithForm
+            formClassName={props.formClassName}
             name={props.name}
             wrapperClass={props.wrapperClass}
             title={props.title}

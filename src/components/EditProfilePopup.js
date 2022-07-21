@@ -32,8 +32,9 @@ const EditProfilePopup = (props) => {
 
     return (
         <PopupWithForm
+            formClassName="popup popup_id_profile-edit"
             name="profile-edit"
-            wrapperClass="popup__wrapper_type"
+            wrapperClass="popup__wrapper popup__wrapper_type"
             title="Редактировать профиль"
             submitButtonTitle="Сохранить"
             isOpen={props.isOpen}

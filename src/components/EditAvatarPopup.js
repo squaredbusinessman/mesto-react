@@ -19,7 +19,8 @@ const EditAvatarPopup = (props) => {
 
     return (
         <PopupWithForm
-            name="popup popup_id_new-avatar"
+            formClassName="popup popup_id_new-avatar"
+            name="new-avatar"
             wrapperClass="popup__wrapper popup__wrapper_type_avatar"
             title="Обновить аватар"
             submitButtonTitle="Сохранить"

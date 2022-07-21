@@ -56,7 +56,7 @@ function App() {
                         `Произошла ошибка при получении данных профиля пользователя - ${error}`
                 );
         })
-    }, []);
+    }, [loggedIn]);
 
     useEffect(() => {
         api.getCards().then(
@@ -69,7 +69,7 @@ function App() {
                     `Произошла ошибка получении карточек с сервера - ${error}`
                 );
             }
-        )}, []);
+        )}, [loggedIn]);
 
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);

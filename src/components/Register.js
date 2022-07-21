@@ -1,8 +1,9 @@
-import React from 'react';
-import {useState} from "@types/react";
+import React, {useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 const Register = (props) => {
+
+    let onRegister = props.onRegister;
 
     const [newUser, setNewUser] = useState({
         email: '',
@@ -12,7 +13,9 @@ const Register = (props) => {
     function handleChange(evt) {
         const {name, value} = evt.target;
 
-        set`${name}`(value);
+        setNewUser({
+            [name]: value
+        });
     }
 
     function handleSubmit(evt) {
@@ -38,34 +41,33 @@ const Register = (props) => {
                     type="email"
                     className="register-form__input register-form_type_email"
                     id="register-form-email"
-                    name="Email"
+                    name="email"
                     aria-label="Поле ввода электронной почты пользователя"
-                    value={name}
+                    placeholder="Email"
                     onChange={handleChange}
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                     autoComplete="off"
                     required
                 />
-                <span className="popup__input-error popup__input-nickname-error"></span>
+                <span className="register-form__input-error register-form__input-email-error"></span>
             </label>
-            <label className="popup__label">
+            <label className="register-form__label">
                 <input
-                    type="text"
-                    className="popup__input popup__input_type_about"
-                    id="popup__input-about"
-                    name="about"
-                    aria-label="Поле ввода информации о пользователе"
-                    value={about}
-                    onChange={handleAboutChange}
-                    minLength="2"
-                    maxLength="200"
+                    type="password"
+                    className="register-form__input register-form__input_type_password"
+                    id="register-form-password"
+                    name="password"
+                    aria-label="Поле ввода пароля"
+                    placeholder="Пароль"
+                    onChange={handleChange}
+                    pattern="(?=.*\d)(?=.*[\W_]).{7,}"
+                    minLength="6"
+                    maxLength="20"
                     autoComplete="off"
                     required
                 />
-                <span className="popup__input-error popup__input-about-error"></span>
+                <span className="register-form__input-error register-form__input-password-error"></span>
             </label>
-
-
         </PopupWithForm>
     );
 };

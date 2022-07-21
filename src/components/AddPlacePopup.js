@@ -23,6 +23,8 @@ const AddPlacePopup = (props) => {
 
     return (
         <PopupWithForm
+            formClassName="popup popup_id_new-post"
+            wrapperClass="popup__wrapper"
             name="new-post"
             title="Новое место"
             submitButtonTitle="Создать"

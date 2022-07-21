@@ -9,6 +9,10 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
+import {Route, Switch} from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
 
@@ -31,6 +35,8 @@ function App() {
     const [isImagePopupOpen, setImagePopupOpen] = useState(false);
 
     const [cards, setCards] = useState([]);
+
+    const [loggedIn, setLoggedIn] = useState(true);
 
     useEffect(() => {
         api.getProfile()
@@ -191,57 +197,74 @@ function App() {
         )
     }
 
+    const email = '';
+
+    function onSignOut() {}
+
+    function onLogin() {
+        setLoggedIn(true);
+    }
+
+    function onRegister() {}
+
     return (
-     <div className="App">
         <CurrentUserContext.Provider value={currentUser}>
-            <Header />
-            <Main
-                onEditAvatar={handleEditAvatarClick}
-                onEditProfile={handleEditProfileClick}
-                onAddPlace={handleAddPlaceClick}
-                onCardClick={handleCardClick}
-                onRemoveBtnClick={handleDeleteConfirmClick}
-                cards={cards}
-                onCardLike={handleCardLike}
-            />
-            <Footer />
-
-            <EditProfilePopup
-                isOpen={isEditProfilePopupOpen}
-                onClose={closeAllPopups}
-                onUpdateUserProfile={handleUpdateProfile}
-            />
-
-            <AddPlacePopup
-                isOpen={isAddPlacePopupOpen}
-                onClose={closeAllPopups}
-                onAddPlace={handleAddPlaceSubmit}
-            />
-
-            <EditAvatarPopup
-                isOpen={isEditAvatarPopupOpen}
-                onClose={closeAllPopups}
-                onUpdateAvatar={handleUpdateAvatar}
-            />
-
-            <ConfirmDeletePopup
-                name="delete-confirm"
-                wrapperClass="popup__wrapper_type_confirm"
-                title="Вы уверены?"
-                submitButtonTitle="Да"
-                onRemoveCard={handleCardRemove}
-                isOpen={isDeleteConfirmPopupOpen}
-                onClose={closeAllPopups}
-                card={selectedCard}
-            />
-
-            <ImagePopup
-                card={selectedCard}
-                isOpen={isImagePopupOpen}
-                onClose={closeAllPopups}
-            />
+            <div className="App">
+                <Header email={email} onSignOut={onSignOut} />
+                <Switch>
+                    <ProtectedRoute
+                        exact
+                        path="/"
+                        component={Main}
+                        loggedIn={loggedIn}
+                        onEditAvatar={handleEditAvatarClick}
+                        onEditProfile={handleEditProfileClick}
+                        onAddPlace={handleAddPlaceClick}
+                        onCardClick={handleCardClick}
+                        onRemoveBtnClick={handleDeleteConfirmClick}
+                        cards={cards}
+                        onCardLike={handleCardLike}
+                    ></ProtectedRoute>
+                    <Route path="/sign-in">
+                        <Login onLogin={onLogin} />
+                    </Route>
+                    <Route path="/sign-up">
+                        <Register onRegister={onRegister} />
+                    </Route>
+                </Switch>
+                    <Footer />
+                    <EditProfilePopup
+                        isOpen={isEditProfilePopupOpen}
+                        onClose={closeAllPopups}
+                        onUpdateUserProfile={handleUpdateProfile}
+                    />
+                    <AddPlacePopup
+                        isOpen={isAddPlacePopupOpen}
+                        onClose={closeAllPopups}
+                        onAddPlace={handleAddPlaceSubmit}
+                    />
+                    <EditAvatarPopup
+                        isOpen={isEditAvatarPopupOpen}
+                        onClose={closeAllPopups}
+                        onUpdateAvatar={handleUpdateAvatar}
+                    />
+                    <ConfirmDeletePopup
+                        name="delete-confirm"
+                        wrapperClass="popup__wrapper_type_confirm"
+                        title="Вы уверены?"
+                        submitButtonTitle="Да"
+                        onRemoveCard={handleCardRemove}
+                        isOpen={isDeleteConfirmPopupOpen}
+                        onClose={closeAllPopups}
+                        card={selectedCard}
+                    />
+                    <ImagePopup
+                        card={selectedCard}
+                        isOpen={isImagePopupOpen}
+                        onClose={closeAllPopups}
+                    />
+            </div>
         </CurrentUserContext.Provider>
-    </div>
     );
 }
 

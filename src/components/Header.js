@@ -4,7 +4,7 @@ import headerLogoPath from "../images/logo/logo-mesto.svg";
 const Header = () => {
     return (
         <header className="header">
-            <a href="../../public/index.html">
+            <a href="/">
                 <img
                     className="header__logo"
                     src={headerLogoPath}

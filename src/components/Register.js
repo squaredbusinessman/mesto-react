@@ -3,8 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 
 const Register = (props) => {
 
-    let onRegister = props.onRegister;
-
     const [newUser, setNewUser] = useState({
         email: '',
         password: '',
@@ -21,26 +19,24 @@ const Register = (props) => {
     function handleSubmit(evt) {
         evt.preventDefault();
 
-        if (newUser.password) {
-
-        }
+        if (newUser.password) {}
     }
 
     return (
         <PopupWithForm
-            formClassName="register-form"
+            formClassName="register"
             name="register"
-            wrapperClass=""
+            wrapperClass="register__wrapper"
             title="Регистрация"
             submitButtonTitle="Зарегистрироваться"
             onSubmit={handleSubmit}
             isRegisterForm={true}
         >
-            <label className="register-form__label">
+            <label className="register__label">
                 <input
                     type="email"
-                    className="register-form__input register-form_type_email"
-                    id="register-form-email"
+                    className="register__input register_type_email"
+                    id="register-email"
                     name="email"
                     aria-label="Поле ввода электронной почты пользователя"
                     placeholder="Email"
@@ -49,13 +45,13 @@ const Register = (props) => {
                     autoComplete="off"
                     required
                 />
-                <span className="register-form__input-error register-form__input-email-error"></span>
+                <span className="register__input-error register__input-error_type_email"></span>
             </label>
-            <label className="register-form__label">
+            <label className="register__label">
                 <input
                     type="password"
-                    className="register-form__input register-form__input_type_password"
-                    id="register-form-password"
+                    className="register__input register__input_type_password"
+                    id="register-password"
                     name="password"
                     aria-label="Поле ввода пароля"
                     placeholder="Пароль"
@@ -66,7 +62,7 @@ const Register = (props) => {
                     autoComplete="off"
                     required
                 />
-                <span className="register-form__input-error register-form__input-password-error"></span>
+                <span className="register__input-error register__input-error_type_password"></span>
             </label>
         </PopupWithForm>
     );

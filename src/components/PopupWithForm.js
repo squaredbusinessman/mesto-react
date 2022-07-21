@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 
 function PopupWithForm(props) {
 
-    const formMainClass = props.formClassName.split(' ')[0];
+    const formMainClass = props.formClassName.split(' ').shift();
 
     useEffect(() => {
         function handleEscClose(evt) {
@@ -26,8 +26,8 @@ function PopupWithForm(props) {
     }, []);
 
     return (
-        <div className={`${props.formClassName} ${props.isOpen && 'popup_visible'}`}>
-            <div className={`${props.wrapperClass || ''}`}>
+        <div className={`${props.formClassName} ${props.isOpen ? 'popup_visible' : ''}`}>
+            <div className={`${props.wrapperClass}`}>
                 <h2 className={`${formMainClass}__title`}>
                     {props.title}
                 </h2>
@@ -50,8 +50,9 @@ function PopupWithForm(props) {
                     {
                         props.isRegisterForm
                         &&
-                        <span className="register-form__go-login">
-                            <a href="/sign-in">
+                        <span className="register__go-login">
+                            Уже зарегистрированы?&nbsp;
+                            <a className="register__go-login_link" href="/sign-in">
                                 Войти
                             </a>
                         </span>

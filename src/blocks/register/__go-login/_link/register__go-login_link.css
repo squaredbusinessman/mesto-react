@@ -1,1 +1,4 @@
-.register__go-login_link {}
+.register__go-login_link {
+  text-decoration: none;
+  color: #fff;
+}

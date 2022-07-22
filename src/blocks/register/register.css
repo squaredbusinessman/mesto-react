@@ -1,1 +1,5 @@
-.register {}
+.register {
+  max-height: 525px;
+  margin: 60px auto 0;
+  font-family: 'Inter', Arial,  sans-serif;
+}

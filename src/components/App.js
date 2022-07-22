@@ -9,7 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import {Route, Switch} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -225,7 +225,7 @@ function App() {
                         onRemoveBtnClick={handleDeleteConfirmClick}
                         cards={cards}
                         onCardLike={handleCardLike}
-                    ></ProtectedRoute>
+                    />
                     <Route path="/sign-in">
                         <Login onLogin={onLogin} />
                     </Route>

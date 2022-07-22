@@ -56,7 +56,6 @@ const Register = (props) => {
                     aria-label="Поле ввода пароля"
                     placeholder="Пароль"
                     onChange={handleChange}
-                    pattern="(?=.*\d)(?=.*[\W_]).{7,}"
                     minLength="6"
                     maxLength="20"
                     autoComplete="off"

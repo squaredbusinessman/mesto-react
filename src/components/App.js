@@ -9,10 +9,11 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import {Link, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
 
@@ -33,6 +34,8 @@ function App() {
     const [isDeleteConfirmPopupOpen, setDeleteConfirmPopup] = useState(false);
 
     const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+
+    const [isInfoToolTipPopupOpen, setInfoToolTipPopup] = useState(false);
 
     const [cards, setCards] = useState([]);
 
@@ -83,12 +86,17 @@ function App() {
         setAddPlacePopup(true);
     }
 
+    function handleTooltipOpen() {
+        setInfoToolTipPopup(true)
+    }
+
     function closeAllPopups() {
         setEditAvatarPopup(false);
         setEditProfilePopup(false);
         setAddPlacePopup(false);
         setDeleteConfirmPopup(false);
         setImagePopupOpen(false);
+        setInfoToolTipPopup(false);
         setSelectedCard(null);
     }
 
@@ -227,7 +235,12 @@ function App() {
                         onCardLike={handleCardLike}
                     />
                     <Route path="/sign-in">
-                        <Login onLogin={onLogin} />
+                        <Login onLogin={onLogin}>
+                            <InfoTooltip
+                                isOpen={true}
+                                onClose={closeAllPopups}
+                            />
+                        </Login>
                     </Route>
                     <Route path="/sign-up">
                         <Register onRegister={onRegister} />

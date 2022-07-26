@@ -9,6 +9,9 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__authorized-user-wrapper/header__authorized-user-wrapper.css);
+@import url(./blocks/header/__user-email/header__user-email.css);
+@import url(./blocks/header/__button/header__button.css);
 
 @import url(./blocks/user/user.css);
 @import url(./blocks/user/__avatar-wrapper/user__avatar-wrapper.css);

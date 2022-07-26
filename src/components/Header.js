@@ -1,8 +1,16 @@
 import React from 'react';
 import headerLogoPath from "../images/logo/logo-mesto.svg";
-import {Link} from "react-router-dom";
+import {Link, Route, useHistory} from "react-router-dom";
 
 const Header = (props) => {
+
+    const history = useHistory();
+
+    function handleSignOut() {
+        localStorage.removeItem('jwt');
+        history.push('/login');
+    }
+
     return (
         <header className="header">
             <a href="/">
@@ -12,18 +20,33 @@ const Header = (props) => {
                     alt="Mesto логотип"
                 />
             </a>
-            <Link
-                to="/sign-up"
-                className={`header__link ${props.loggedIn && 'visually_hidden'}`}
-            >
-                Регистрация
-            </Link>
-            <Link
-                to="/sign-in"
-                className={`header__link ${props.loggedIn && 'visually_hidden'}`}
-            >
-                Войти
-            </Link>
+            <Route exact path="/">
+                <div className="header__authorized-user-wrapper">
+                    <p className="header__user-email">{`${props.email}`}</p>
+                    <button
+                        onClick={handleSignOut}
+                        className="header__button"
+                    >
+                        Выйти
+                    </button>
+                </div>
+            </Route>
+            <Route path="/sign-up">
+                <Link
+                    to={'/sign-in'}
+                    className="header__button"
+                >
+                    Войти
+                </Link>
+            </Route>
+            <Route path="/sign-in">
+                <Link
+                    to={'/sign-up'}
+                    className="header__button"
+                >
+                    Регистрация
+                </Link>
+            </Route>
         </header>
     );
 };

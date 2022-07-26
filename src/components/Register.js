@@ -1,25 +1,35 @@
 import React, {useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
+import {useHistory} from "react-router-dom";
+import * as MestoAuth from "../MestoAuth";
 
 const Register = (props) => {
 
-    const [newUser, setNewUser] = useState({
-        email: '',
-        password: '',
-    })
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isError, setError] = useState(false);
 
-    function handleChange(evt) {
-        const {name, value} = evt.target;
+    const history = useHistory();
 
-        setNewUser({
-            [name]: value
-        });
+    function handleChangeEmail(evt) {
+        setEmail(evt.target.value);
+    }
+
+    function handleChangePassword(evt) {
+        setPassword(evt.target.value);
     }
 
     function handleSubmit(evt) {
         evt.preventDefault();
 
-        if (newUser.password) {}
+        if (password) {
+            props.onRegister({ email, password }).then(() => {
+                history.push('/login');
+            }).catch((err) => {
+                console.log(err);
+                setError(true);
+            });
+        }
     }
 
     return (
@@ -40,9 +50,10 @@ const Register = (props) => {
                     name="email"
                     aria-label="Поле ввода электронной почты пользователя"
                     placeholder="Email"
-                    onChange={handleChange}
+                    onChange={handleChangeEmail}
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                     autoComplete="off"
+                    value={email}
                     required
                 />
                 <span className="register__input-error register__input-error_type_email"></span>
@@ -55,10 +66,11 @@ const Register = (props) => {
                     name="password"
                     aria-label="Поле ввода пароля"
                     placeholder="Пароль"
-                    onChange={handleChange}
+                    onChange={handleChangePassword}
                     minLength="6"
                     maxLength="20"
                     autoComplete="off"
+                    value={password}
                     required
                 />
                 <span className="register__input-error register__input-error_type_password"></span>

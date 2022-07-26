@@ -9,11 +9,12 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
+import * as MestoAuth from "../MestoAuth";
 
 function App() {
 
@@ -40,6 +41,10 @@ function App() {
     const [cards, setCards] = useState([]);
 
     const [loggedIn, setLoggedIn] = useState(false);
+
+    const [userData, setUserData] = useState({});
+
+    const history = useHistory();
 
     useEffect(() => {
         api.getProfile()
@@ -73,6 +78,34 @@ function App() {
                 );
             }
         )}, [loggedIn]);
+
+    useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            auth(jwt).then(res => res.json());
+        }
+    }, [loggedIn]);
+
+    useEffect(() => {
+        if (loggedIn) {
+            history.push('/');
+        }
+    }, [loggedIn]);
+
+
+    const auth = async (jwt) => {
+        return await MestoAuth.getContent(jwt)
+            .then((res) => {
+                if (res) {
+                    const {email, password} = res;
+                    setLoggedIn(true);
+                    setUserData({
+                        email: email,
+                        password: password,
+                    })
+                }
+            });
+    }
 
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
@@ -209,12 +242,21 @@ function App() {
 
     function onSignOut() {}
 
-    function onLogin(evt) {
-        evt.preventDefault();
-        setLoggedIn(true);
+    function onLogin({email, password}) {
+        return MestoAuth.authorize(email, password)
+            .then((res) => {
+            if (res.jwt) {
+                localStorage.setItem('jwt', res.jwt);
+                setLoggedIn(true);
+            }
+        });
     }
 
-    function onRegister() {}
+    function onRegister({ email, password }) {
+        return MestoAuth.register(email, password).then((res) => {
+            return res;
+        })
+    }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>

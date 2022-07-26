@@ -1,17 +1,42 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
+import {useState} from 'react';
+import InfoTooltip from "./InfoTooltip";
+import {useHistory} from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 
-    function handleChange(evt) {
-        const {name, value} = evt.target;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
 
+    const history = useHistory();
 
+    function resetForm() {
+        setEmail('');
+        setPassword('');
+    }
+
+    function handleChangeEmail(evt) {
+        setEmail(evt.target.value);
+    }
+
+    function handleChangePassword(evt) {
+        setPassword(evt.target.value);
     }
 
     function handleSubmit(evt) {
         evt.preventDefault();
 
+        onLogin({email, password})
+            .then(() => {
+            history.push('/');
+        })
+            .then(() => resetForm())
+            .catch((err) => {
+                console.log(err);
+                setError(true);
+            })
     }
 
     return (
@@ -31,7 +56,8 @@ const Login = () => {
                     name="email"
                     aria-label="Поле ввода электронной почты пользователя"
                     placeholder="Email"
-                    onChange={handleChange}
+                    onChange={handleChangeEmail}
+                    value={email}
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                     autoComplete="off"
                     required
@@ -46,7 +72,8 @@ const Login = () => {
                     name="password"
                     aria-label="Поле ввода пароля"
                     placeholder="Пароль"
-                    onChange={handleChange}
+                    onChange={handleChangePassword}
+                    value={password}
                     minLength="6"
                     maxLength="20"
                     autoComplete="off"
@@ -54,6 +81,7 @@ const Login = () => {
                 />
                 <span className="login__input-error login__input-error_type_password"></span>
             </label>
+            <InfoTooltip />
         </PopupWithForm>
     );
 };

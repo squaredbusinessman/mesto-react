@@ -2,14 +2,14 @@ import React from 'react';
 
 const InfoTooltip = (props) => {
     return (
-        <div className={`popup popup_id_info-tooltip ${props.isOpen && 'popup_visible'}`}>
+        <div className={`popup ${props.isOpen && "popup_visible"}`}>
             <div className="popup__container popup__container_type_tooltip">
                 <img
                     className="popup__img popup__img_type_tooltip"
-                    src="../images/tooltip/failure.svg"
-                    alt="иконка неудачной попытки входа в аккаунт"
+                    src={props.image}
+                    alt="иконка попытки входа в аккаунт"
                 />
-                <p className="popup__name popup__name_type_tooltip">Что-то пошло не так! Попробуйте ещё раз.</p>
+                <p className="popup__name popup__name_type_tooltip">{`${props.title}`}</p>
                 <button
                     onClick={props.onClose}
                     type="button"

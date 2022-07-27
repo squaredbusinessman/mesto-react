@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
-import {useHistory} from "react-router-dom";
 
 const Register = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isError, setError] = useState(false);
-
-    const history = useHistory();
 
     function handleChangeEmail(evt) {
         setEmail(evt.target.value);
@@ -22,11 +18,11 @@ const Register = (props) => {
         evt.preventDefault();
 
         if (password) {
-            props.onRegister({ email, password }).then(() => {
-                history.push('/sign-in');
-            }).catch((err) => {
+            props.onRegister({ email, password })
+                .then(() => {
+            })
+                .catch((err) => {
                 console.log(err);
-                setError(true);
             });
         }
     }

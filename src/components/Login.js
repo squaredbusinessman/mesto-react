@@ -4,11 +4,10 @@ import {useState} from 'react';
 import InfoTooltip from "./InfoTooltip";
 import {useHistory} from "react-router-dom";
 
-const Login = ({ onLogin }) => {
+const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
 
     const history = useHistory();
 
@@ -28,14 +27,13 @@ const Login = ({ onLogin }) => {
     function handleSubmit(evt) {
         evt.preventDefault();
 
-        onLogin({email, password})
+        props.onLogin({email, password})
             .then(() => {
-            history.push('/');
+                history.push('/');
         })
             .then(() => resetForm())
             .catch((err) => {
                 console.log(err);
-                setError(true);
             })
     }
 

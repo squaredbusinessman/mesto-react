@@ -15,6 +15,8 @@ import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
 import * as MestoAuth from "../MestoAuth";
+import successLogoPath from "../images/tooltip/success.svg";
+import failureLogoPath from "../images/tooltip/failure.svg";
 
 function App() {
 
@@ -23,7 +25,6 @@ function App() {
         about: '',
         avatar: '',
         email: '',
-        password: '',
     })
 
     const [infoTooltipData, setInfoToolTipData] = useState({
@@ -265,9 +266,41 @@ function App() {
 
     function onRegister({ email, password }) {
         return MestoAuth.register(email, password)
-            .then((data) => {
-                setCurrentUser(data);
-                console.log(currentUser);
+            .then((res) => {
+                if (res.ok) {
+
+                    const { data } = res;
+
+                    setCurrentUser({
+                        ...currentUser,
+                        email: data.email,
+                    });
+
+                    setInfoToolTipData({
+                        ...infoTooltipData,
+                        title: "Вы успешно зарегистрировались!",
+                        image: successLogoPath,
+                        isOpen: true,
+                    })
+
+                    setTimeout(() => {
+                        closeAllPopups();
+                        history.push("/sign-in");
+                    }, 3000);
+                } else {
+
+                    setInfoToolTipData({
+                        ...infoTooltipData,
+                        title: "Что-то пошло не так! Попробуйте ещё раз.",
+                        image: failureLogoPath,
+                        isOpen: true,
+                    })
+
+                    setTimeout(() => {
+                        closeAllPopups();
+                        history.push("/");
+                    }, 30000);
+                }
             })
     }
 
@@ -298,7 +331,7 @@ function App() {
                         </Login>
                     </Route>
                     <Route path="/sign-up">
-                        <Register onRegister={onRegister} />
+                        <Register onRegister={onRegister} closeAllPopups={closeAllPopups} />
                         <InfoTooltip
                             title={infoTooltipData.title}
                             image={infoTooltipData.image}

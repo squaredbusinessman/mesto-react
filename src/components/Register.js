@@ -70,7 +70,6 @@ const Register = (props) => {
                 />
                 <span className="register__input-error register__input-error_type_password"></span>
             </label>
-            <infoTooltip />
         </PopupWithForm>
     );
 };

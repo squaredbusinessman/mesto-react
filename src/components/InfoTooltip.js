@@ -7,7 +7,7 @@ const InfoTooltip = (props) => {
                 <img
                     className="popup__img popup__img_type_tooltip"
                     src={props.image}
-                    alt="иконка попытки входа в аккаунт"
+                    alt="иконка попытки регистрации аккаунта"
                 />
                 <p className="popup__name popup__name_type_tooltip">{`${props.title}`}</p>
                 <button

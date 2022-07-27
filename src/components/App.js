@@ -27,9 +27,9 @@ function App() {
         email: '',
     })
 
-    const [infoTooltipData, setInfoToolTipData] = useState({
+    const [tooltipData, setToolTipData] = useState({
         title: '',
-        image: '',
+        img: '',
         isOpen: false,
     })
 
@@ -102,8 +102,8 @@ function App() {
         setAddPlacePopup(false);
         setDeleteConfirmPopup(false);
         setImagePopupOpen(false);
-        setInfoToolTipData({
-            ...infoTooltipData,
+        setToolTipData({
+            ...tooltipData,
             isOpen: false
         });
         setSelectedCard(null);
@@ -215,13 +215,17 @@ function App() {
         )
     }
 
-
     useEffect(() => {
 
         const jwt = localStorage.getItem('jwt');
 
         if (jwt) {
-            auth(jwt).then((res) => {});
+            auth(jwt)
+                .then(
+                    (response) => {
+                        response.json();
+                    }
+                )
         }
     }, [loggedIn]);
 
@@ -249,8 +253,6 @@ function App() {
                 });
     }
 
-    function onSignOut() {}
-
     function onLogin({email, password}) {
         return MestoAuth.authorize(email, password)
             .then((res) => {
@@ -267,7 +269,15 @@ function App() {
     function onRegister({ email, password }) {
         return MestoAuth.register(email, password)
             .then((res) => {
-                if (res.ok) {
+
+                if (!res.error) {
+
+                    setToolTipData({
+                        ...tooltipData,
+                        title: "Вы успешно зарегистрировались!",
+                        img: successLogoPath,
+                        isOpen: true,
+                    })
 
                     const { data } = res;
 
@@ -276,30 +286,24 @@ function App() {
                         email: data.email,
                     });
 
-                    setInfoToolTipData({
-                        ...infoTooltipData,
-                        title: "Вы успешно зарегистрировались!",
-                        image: successLogoPath,
-                        isOpen: true,
-                    })
-
                     setTimeout(() => {
                         closeAllPopups();
                         history.push("/sign-in");
                     }, 3000);
+
                 } else {
 
-                    setInfoToolTipData({
-                        ...infoTooltipData,
-                        title: "Что-то пошло не так! Попробуйте ещё раз.",
-                        image: failureLogoPath,
+                    setToolTipData({
+                        ...tooltipData,
+                        title: res.error,
+                        img: failureLogoPath,
                         isOpen: true,
                     })
 
                     setTimeout(() => {
                         closeAllPopups();
                         history.push("/");
-                    }, 30000);
+                    }, 3000);
                 }
             })
     }
@@ -307,7 +311,7 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="App">
-                <Header email={currentUser.email} onSignOut={onSignOut} />
+                <Header email={currentUser.email} />
                 <Switch>
                     <ProtectedRoute
                         exact
@@ -323,19 +327,14 @@ function App() {
                         onCardLike={handleCardLike}
                     />
                     <Route path="/sign-in">
-                        <Login onLogin={onLogin}>
-                            <InfoTooltip
-                                isOpen={true}
-                                onClose={closeAllPopups}
-                            />
-                        </Login>
+                        <Login onLogin={onLogin} />
                     </Route>
                     <Route path="/sign-up">
                         <Register onRegister={onRegister} closeAllPopups={closeAllPopups} />
                         <InfoTooltip
-                            title={infoTooltipData.title}
-                            image={infoTooltipData.image}
-                            isOpen={infoTooltipData.isOpen}
+                            title={tooltipData.title}
+                            image={tooltipData.img}
+                            isOpen={tooltipData.isOpen}
                             onClose={closeAllPopups}
                         />
                     </Route>

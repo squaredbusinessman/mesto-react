@@ -22,6 +22,14 @@ function App() {
         name: '',
         about: '',
         avatar: '',
+        email: '',
+        password: '',
+    })
+
+    const [infoTooltipData, setInfoToolTipData] = useState({
+        title: '',
+        image: '',
+        isOpen: false,
     })
 
     const [selectedCard, setSelectedCard] = useState(null);
@@ -36,13 +44,9 @@ function App() {
 
     const [isImagePopupOpen, setImagePopupOpen] = useState(false);
 
-    const [isInfoToolTipPopupOpen, setInfoToolTipPopup] = useState(false);
-
     const [cards, setCards] = useState([]);
 
     const [loggedIn, setLoggedIn] = useState(false);
-
-    const [userData, setUserData] = useState({});
 
     const history = useHistory();
 
@@ -79,34 +83,6 @@ function App() {
             }
         )}, [loggedIn]);
 
-    useEffect(() => {
-        const jwt = localStorage.getItem('jwt');
-        if (jwt) {
-            auth(jwt).then(res => res.json());
-        }
-    }, [loggedIn]);
-
-    useEffect(() => {
-        if (loggedIn) {
-            history.push('/');
-        }
-    }, [loggedIn]);
-
-
-    const auth = async (jwt) => {
-        return await MestoAuth.getContent(jwt)
-            .then((res) => {
-                if (res) {
-                    const {email, password} = res;
-                    setLoggedIn(true);
-                    setUserData({
-                        email: email,
-                        password: password,
-                    })
-                }
-            });
-    }
-
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
     }
@@ -119,17 +95,16 @@ function App() {
         setAddPlacePopup(true);
     }
 
-    function handleTooltipOpen() {
-        setInfoToolTipPopup(true)
-    }
-
     function closeAllPopups() {
         setEditAvatarPopup(false);
         setEditProfilePopup(false);
         setAddPlacePopup(false);
         setDeleteConfirmPopup(false);
         setImagePopupOpen(false);
-        setInfoToolTipPopup(false);
+        setInfoToolTipData({
+            ...infoTooltipData,
+            isOpen: false
+        });
         setSelectedCard(null);
     }
 
@@ -199,10 +174,11 @@ function App() {
     }
 
     function handleCardLike(card) {
+        const { likes, _id } = card;
         // проверяем лайк
-        const isLiked = card.likes.some(like => like._id === currentUser._id);
+        const isLiked = likes.some(like => like._id === currentUser._id);
         // отправляем запрос в АПИ и получаем обновленные данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked)
+        api.changeLikeCardStatus(_id, !isLiked)
             .then((newCard) => {
                 setCards(
                     (state) => state.map(
@@ -238,30 +214,67 @@ function App() {
         )
     }
 
-    const email = '';
+
+    useEffect(() => {
+
+        const jwt = localStorage.getItem('jwt');
+
+        if (jwt) {
+            auth(jwt).then((res) => {});
+        }
+    }, [loggedIn]);
+
+    useEffect(() => {
+
+        if (loggedIn) {
+            history.push('/');
+        }
+    }, [loggedIn]);
+
+
+    const auth = async (jwt) => {
+        return await MestoAuth.getContent(jwt)
+            .then(
+                (res) => {
+
+                    const { data } = res;
+
+                    setCurrentUser({
+                        ...currentUser,
+                        email: data.email,
+                    })
+
+                    setLoggedIn(true);
+                });
+    }
 
     function onSignOut() {}
 
     function onLogin({email, password}) {
         return MestoAuth.authorize(email, password)
             .then((res) => {
-            if (res.jwt) {
-                localStorage.setItem('jwt', res.jwt);
-                setLoggedIn(true);
-            }
+
+                const { token } = res;
+
+                if (token) {
+                    localStorage.setItem('jwt', token);
+                    setLoggedIn(true);
+                }
         });
     }
 
     function onRegister({ email, password }) {
-        return MestoAuth.register(email, password).then((res) => {
-            return res;
-        })
+        return MestoAuth.register(email, password)
+            .then((data) => {
+                setCurrentUser(data);
+                console.log(currentUser);
+            })
     }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="App">
-                <Header email={email} onSignOut={onSignOut} />
+                <Header email={currentUser.email} onSignOut={onSignOut} />
                 <Switch>
                     <ProtectedRoute
                         exact
@@ -286,6 +299,12 @@ function App() {
                     </Route>
                     <Route path="/sign-up">
                         <Register onRegister={onRegister} />
+                        <InfoTooltip
+                            title={infoTooltipData.title}
+                            image={infoTooltipData.image}
+                            isOpen={infoTooltipData.isOpen}
+                            onClose={closeAllPopups}
+                        />
                     </Route>
                 </Switch>
                     <Footer />

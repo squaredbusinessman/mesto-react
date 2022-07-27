@@ -8,7 +8,7 @@ const Header = (props) => {
 
     function handleSignOut() {
         localStorage.removeItem('jwt');
-        history.push('/login');
+        history.push('/sign-in');
     }
 
     return (

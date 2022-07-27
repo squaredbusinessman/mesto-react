@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
 import {useHistory} from "react-router-dom";
-import * as MestoAuth from "../MestoAuth";
 
 const Register = (props) => {
 
@@ -24,7 +23,7 @@ const Register = (props) => {
 
         if (password) {
             props.onRegister({ email, password }).then(() => {
-                history.push('/login');
+                history.push('/sign-in');
             }).catch((err) => {
                 console.log(err);
                 setError(true);
@@ -75,6 +74,7 @@ const Register = (props) => {
                 />
                 <span className="register__input-error register__input-error_type_password"></span>
             </label>
+            <infoTooltip />
         </PopupWithForm>
     );
 };

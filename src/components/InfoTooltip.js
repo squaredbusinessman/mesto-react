@@ -1,5 +1,4 @@
 import React from 'react';
-import PopupWithForm from "./PopupWithForm";
 
 const InfoTooltip = (props) => {
     return (
